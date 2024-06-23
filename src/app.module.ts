@@ -15,7 +15,6 @@ import { AnswersModule } from './answers/answers.module';
       entities: [Question, Answer],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Question, Answer]),
     QuestionsModule,
     AnswersModule,
   ],
