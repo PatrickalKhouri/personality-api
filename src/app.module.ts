@@ -2,8 +2,10 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Answer } from './entities/answer.entity';
-import { Question } from './entities/question.entity';
+import { Answer } from './answers/entities/answer.entity';
+import { Question } from './questions/entities/question.entity';
+import { QuestionsModule } from './questions/questions.module';
+import { AnswersModule } from './answers/answers.module';
 
 @Module({
   imports: [
@@ -13,7 +15,8 @@ import { Question } from './entities/question.entity';
       entities: [Question, Answer],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Question, Answer]),
+    QuestionsModule,
+    AnswersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
