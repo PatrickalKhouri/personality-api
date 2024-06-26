@@ -1,18 +1,35 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Question } from './entities/question.entity';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
+import { Answer } from 'src/answers/entities/answer.entity';
 
 @Injectable()
 export class QuestionsService {
   constructor(
     @InjectRepository(Question)
     private readonly questionRepository: Repository<Question>,
+    @InjectRepository(Answer)
+    private readonly answerRepository: Repository<Answer>,
   ) {}
 
-  create(createQuestionDto: CreateQuestionDto) {
+  async create(createQuestionDto: CreateQuestionDto) {
+    const existingQuestion = await this.questionRepository.findOne({
+      where: { question: createQuestionDto.question },
+    });
+    if (existingQuestion) {
+      throw new BadRequestException('Question already exists');
+    }
+
+    if (
+      !createQuestionDto.question ||
+      createQuestionDto.question.trim() === ''
+    ) {
+      throw new BadRequestException('Question field is required');
+    }
+
     const question = this.questionRepository.create(createQuestionDto);
     return this.questionRepository.save(question);
   }
@@ -35,5 +52,33 @@ export class QuestionsService {
 
   async remove(id: number) {
     await this.questionRepository.delete(id);
+  }
+
+  async addAnswerToQuestion(
+    questionId: number,
+    answerText: string,
+    score: number,
+  ): Promise<Answer> {
+    const question = await this.questionRepository.findOne({
+      where: { id: questionId },
+      relations: ['answers'],
+    });
+
+    if (!question) {
+      throw new BadRequestException('Question not found');
+    }
+
+    if (question.answers.length >= 5) {
+      throw new BadRequestException(
+        'A question cannot have more than 5 answers',
+      );
+    }
+
+    const answer = this.answerRepository.create({
+      answer: answerText,
+      score: score,
+      question,
+    });
+    return this.answerRepository.save(answer);
   }
 }

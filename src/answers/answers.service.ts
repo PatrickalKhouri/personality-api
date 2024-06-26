@@ -4,17 +4,22 @@ import { Repository } from 'typeorm';
 import { Answer } from './entities/answer.entity';
 import { CreateAnswerDto } from './dto/create-answer.dto';
 import { UpdateAnswerDto } from './dto/update-answer.dto';
+import { QuestionsService } from '../questions/questions.service';
 
 @Injectable()
 export class AnswersService {
   constructor(
     @InjectRepository(Answer)
     private readonly answerRepository: Repository<Answer>,
+    private readonly questionsService: QuestionsService,
   ) {}
 
   async create(createAnswerDto: CreateAnswerDto): Promise<Answer> {
-    const answer = this.answerRepository.create(createAnswerDto);
-    return this.answerRepository.save(answer);
+    return this.questionsService.addAnswerToQuestion(
+      createAnswerDto.questionId,
+      createAnswerDto.answer,
+      createAnswerDto.score,
+    );
   }
 
   findAll(): Promise<Answer[]> {
