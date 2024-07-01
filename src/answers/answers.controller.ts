@@ -6,12 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { AnswersService } from './answers.service';
 import { CreateAnswerDto } from './dto/create-answer.dto';
 import { UpdateAnswerDto } from './dto/update-answer.dto';
+import { BackofficeKeyGuard } from '../auth/backoffice-key.guard';
 
 @Controller('answers')
+@UseGuards(BackofficeKeyGuard)
 export class AnswersController {
   constructor(private readonly answersService: AnswersService) {}
 
