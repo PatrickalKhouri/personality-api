@@ -6,6 +6,7 @@ import { Answer } from './answers/entities/answer.entity';
 import { Question } from './questions/entities/question.entity';
 import { QuestionsModule } from './questions/questions.module';
 import { AnswersModule } from './answers/answers.module';
+import { SeedModule } from './seeds/seed.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
@@ -19,6 +20,7 @@ import { ConfigModule } from '@nestjs/config';
     QuestionsModule,
     AnswersModule,
     ConfigModule.forRoot({ isGlobal: true }),
+    SeedModule,
   ],
   controllers: [AppController],
   providers: [AppService],
