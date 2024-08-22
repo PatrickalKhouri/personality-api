@@ -8,6 +8,7 @@ async function bootstrap() {
   const seedService = app.get(SeedService);
   await seedService.seed();
 
+  app.enableCors();
   await app.listen(4000);
 }
 bootstrap();
