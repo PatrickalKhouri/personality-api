@@ -18,6 +18,6 @@ RUN npm install --only=production
 COPY --from=builder /app/dist ./dist
 COPY ormconfig.json ./
 
-EXPOSE 3000
+EXPOSE 4000
 
 CMD ["sh", "-c", "node dist/main"]
