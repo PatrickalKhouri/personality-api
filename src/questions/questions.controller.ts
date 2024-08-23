@@ -28,10 +28,16 @@ export class QuestionsController {
     return this.questionsService.findAll();
   }
 
+  @Get('/random')
+  async getRandomQuestions() {
+    return await this.questionsService.findRandom(5);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.questionsService.findOne(Number(id));
   }
+
 
   @Patch(':id')
   update(
