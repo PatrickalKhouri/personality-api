@@ -81,4 +81,11 @@ export class QuestionsService {
     });
     return this.answerRepository.save(answer);
   }
+
+  async findRandom(limit: number = 5): Promise<Question[]> {
+    const allQuestions = await this.questionRepository.find({
+      relations: ['answers'],
+    });
+    return allQuestions.sort(() => 0.5 - Math.random()).slice(0, limit);
+  }
 }
