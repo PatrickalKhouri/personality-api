@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { IsNotEmpty, MaxLength, MinLength } from 'class-validator';
 
 @Entity()
-export class Answer {
+export class Result {
   @PrimaryGeneratedColumn()
   id: number;
 
