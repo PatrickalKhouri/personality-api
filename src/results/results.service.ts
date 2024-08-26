@@ -18,7 +18,7 @@ export class ResultsService {
   }
 
   findAll() {
-    return this.resultRepository.find({ relations: ['answers'] });
+    return this.resultRepository.find();
   }
 
   findOne(id: number) {

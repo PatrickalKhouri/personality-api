@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Question } from '../questions/entities/question.entity';
 import { Answer } from 'src/answers/entities/answer.entity';
+import { Result } from 'src/results/entities/result.entity';
 
 @Injectable()
 export class SeedService {
@@ -11,6 +12,8 @@ export class SeedService {
     private readonly questionRepository: Repository<Question>,
     @InjectRepository(Answer)
     private readonly answerRepository: Repository<Answer>,
+    @InjectRepository(Result)
+    private readonly resultRepository: Repository<Result>,
   ) {}
 
   async seed() {
@@ -80,5 +83,32 @@ export class SeedService {
         await this.answerRepository.save(answer);
       }
     }
+
+    const resultsData = [
+      {
+        maxScore: 7,
+        title: 'Very Introvert',
+        description:
+          'Based on your answers, it seems you have a strong tendency towards introversion. You likely find solace in solitude, drawing energy from quiet reflection and personal time. Social interactions may feel draining, and you prefer deep, meaningful conversations over small talk.\n\nWhile you may be reserved, your introspective nature allows you to understand yourself deeply, making you thoughtful and observant. You value quality over quantity in your relationships, often seeking out a few close connections rather than a wide social circle.',
+      },
+      {
+        maxScore: 15,
+        title: 'Can be both',
+        description:
+          'Your answers suggest that you are flexible in your social interactions, able to enjoy both solitude and social engagement. You may find yourself comfortable in a variety of settings, sometimes seeking out company and other times preferring time alone. This balance allows you to adapt to different situations with ease.\n\nWhile you can enjoy the energy of being around others, you also appreciate the value of personal time. This adaptability means you can thrive in diverse environments, maintaining a well-rounded approach to your social life.',
+      },
+      {
+        maxScore: 25,
+        title: 'Extrovert',
+        description:
+          'Your responses indicate a strong inclination towards extroversion. You are energized by social interactions and enjoy being around others, often seeking out opportunities to connect with people. Small talk and lively conversations are areas where you thrive, and you likely find solitude less appealing.\n\nBeing highly sociable, you are often the life of the party, with a knack for making connections and bringing people together. Your outgoing nature makes you approachable, and you may find yourself at the center of many social circles, valuing the dynamic and energetic atmosphere of group activities.',
+      },
+    ];
+
+    await Promise.all(
+      resultsData.map(async (resultData) => {
+        return await this.resultRepository.save(resultData);
+      }),
+    );
   }
 }
