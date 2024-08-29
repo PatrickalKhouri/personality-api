@@ -21,6 +21,14 @@ export class ResultsService {
     return this.resultRepository.find();
   }
 
+  async findByScore(score: number): Promise<Result> {
+    return this.resultRepository
+      .createQueryBuilder('result')
+      .where('result.maxScore >= :score', { score })
+      .orderBy('result.maxScore', 'ASC')
+      .getOne();
+  }
+
   findOne(id: number) {
     return this.resultRepository.findOne({
       where: { id },
