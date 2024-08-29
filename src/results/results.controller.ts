@@ -28,6 +28,11 @@ export class ResultsController {
     return this.resultsService.findAll();
   }
 
+  @Get('/score/:score')
+  findByScore(@Param('score') score: number) {
+    return this.resultsService.findByScore(score);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.resultsService.findOne(Number(id));

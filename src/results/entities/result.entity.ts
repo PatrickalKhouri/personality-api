@@ -1,7 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Unique } from 'typeorm';
 import { IsNotEmpty, MaxLength, MinLength } from 'class-validator';
 
 @Entity()
+@Unique(['maxScore'])
 export class Result {
   @PrimaryGeneratedColumn()
   id: number;
