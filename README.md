@@ -50,6 +50,8 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+Default port: 4000
+
 ## Environment Variables
 
 The environment variables can be found and modified in the `.env` file.
