@@ -56,7 +56,7 @@ Default port: 4000
 
 The environment variables can be found and modified in the `.env` file.
 
-# Backoffice Key
+### Backoffice Key
 BACKOFFICE_KEY=example
 
 All requests should have the header ```backoffice_key``` with the value being the same as the BACKOFFICE_KEY
