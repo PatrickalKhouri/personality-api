@@ -28,7 +28,12 @@
 
 ## Installation
 
+
+
+
 ```bash
+$ git clone git@github.com:PatrickalKhouri/personality-api.git
+
 $ npm install
 ```
 
@@ -45,29 +50,18 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+Default port: 4000
 
-```bash
-# unit tests
-$ npm run test
+## Environment Variables
 
-# e2e tests
-$ npm run test:e2e
+The environment variables can be found and modified in the `.env` file.
 
-# test coverage
-$ npm run test:cov
-```
+# Backoffice Key
+BACKOFFICE_KEY=example
 
-## Support
+All requests should have the header ```backoffice_key``` with the value being the same as the BACKOFFICE_KEY
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+## DB
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+This project already has its own seeding. By running the project it will already have some values seeded to the db. When you kill the app, the db resets.
